@@ -57,16 +57,19 @@
 - SNSセクション: PC=4カラムグリッド / モバイル=縦積みリスト
 - MyDawn詳細ページ: PCレイアウト未確定（モックアップがモバイルのみのため）→ 6章「未確定項目」参照
 
-## 6. 未確定項目（要社長確認・回答なければプレースホルダで仮進行）
+## 6. 未確定項目 → 社長確認結果（2026-07-23 確定）
 
-1. MyDawn詳細ページのPCレイアウト（モックアップがスマホ版のみのため、PC版は新規デザインが必要）
-2. 実際のリンク先URL（X, YouTube, Threads, noteの各アカウントURL）
-3. Contact/Feedbackフォームの送信先（メールアドレスか、フォームサービスか）
-4. 実素材（人物写真・MyDawnアプリのスクリーンショット・Journal記事サムネイル）。現在はAI生成のモック画像
-5. About Pa.の4項目（来歴/好きなもの/影響を受けたもの/使用機材）の本文
-6. Journal記事の取得方法（今回は手動更新を想定。note API自動取得は後続フェーズ）
-7. Privacy Policyの本文
-8. サイトの正式ドメイン（デプロイ先URL）
+1. **MyDawn詳細ページのPCレイアウト** → 他ページ（Products/Journalセクション等）と同じ「左テキスト・右画像」の2カラム構成を踏襲し、Cursorの裁量でPC版を作成する
+2. **X/YouTube/Threads/noteの実URL** → 今回はダミーリンク（`#`）。実URLが決まり次第、社長から共有してもらい差し替える
+3. **Contact/Feedback送信先** → `mailto:pa.basement.b1@gmail.com`（フォームサービスは使わない）
+4. **実素材（人物写真・MyDawnスクショ・Journalサムネ）** →
+   - 人物写真: 社長が提供可能。ファイルを共有してもらい次第、`public/images/`に配置して差し替える（現時点は未受領のためプレースホルダ）
+   - MyDawnアプリのスクリーンショット: アプリアイコン用に使っている画像がある可能性あり。共有してもらい次第差し替える（現時点は未受領のためプレースホルダ）
+   - Journal記事サムネイル: 現状なし。プレースホルダ画像で進行
+5. **About Pa.の4項目本文** → 「準備中」のダミーテキストで進行。本文は [docs/content/about.md](content/about.md) 参照
+6. **Journal記事の取得方法** → 手動で2〜3件の仮データを配置。データは [docs/content/journal-sample.json](content/journal-sample.json) 参照。note API自動取得は後続フェーズ
+7. **Privacy Policyの本文** → 一般的なテンプレート文で仮作成。[docs/content/privacy.md](content/privacy.md) 参照（法的完全性は保証されないため、公開前に社長側で確認・調整推奨）
+8. **正式ドメイン** → 未定のまま進行。デプロイは今回のスコープ外
 
 ## 7. 今回追加しないもの（スコープ外・明示的に見送り）
 
@@ -93,8 +96,13 @@
 - レスポンシブ対応
 - ハンバーガーメニューの開閉動作
 - ホバー/トランジションの基本演出
-- 未確定の実素材はプレースホルダで進めてOK（後で差し替え）
+- 未受領の実素材（人物写真・MyDawnスクショ・Journalサムネ）はプレースホルダ画像で進めてOK（後で差し替え）
 - モック画像そのものの完全再現は不要。構成・階層・情報量を揃えれば良い
+- テキストコンテンツは [docs/content/](content/) 配下のファイルをそのまま使う
+  - About Pa.本文 → `content/about.md`
+  - Journal仮データ → `content/journal-sample.json`
+  - Privacy Policy本文 → `content/privacy.md`
+  - Contactリンク → `mailto:pa.basement.b1@gmail.com`
 
 ## 10. 次のアクション
 
