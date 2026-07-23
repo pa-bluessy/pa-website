@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pa-bg: #03050b;
+  --pa-navy: #07101f;
+  --pa-panel: rgba(10, 18, 35, 0.55);
+  --pa-text: #f3f6ff;
+  --pa-muted: #8e9bb2;
+  --pa-cyan: #65d9ff;
+  --pa-violet: #8b7cff;
+  --pa-border: rgba(130, 190, 255, 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Keep viewport width stable when scrollbar appears/disappears */
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: transparent;
+  color: var(--pa-text);
+  font-family: var(--font-sans), Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(101, 217, 255, 0.25);
+  color: #f3f6ff;
+}
+
+@layer components {
+  .panel {
+    @apply border border-pa-border bg-[rgba(10,18,35,0.55)] backdrop-blur-md;
+  }
+
+  .panel-glow {
+    @apply panel transition-[border-color,box-shadow,background-color] duration-300;
+  }
+
+  .panel-glow:hover {
+    border-color: rgba(101, 217, 255, 0.35);
+    box-shadow: 0 0 28px rgba(101, 217, 255, 0.08);
+    background-color: rgba(12, 22, 42, 0.72);
+  }
+
+  .coord-label {
+    @apply font-sans text-[10px] tracking-[0.22em] text-pa-muted uppercase;
+  }
+
+  .section-space {
+    @apply relative py-16 md:py-20;
+  }
+
+  .section-veil {
+    @apply relative bg-[rgba(3,5,11,0.52)];
+    margin-top: -1px;
+    padding-top: 1px;
+  }
+
+  .scroll-stage {
+    @apply relative flex min-h-[100svh] flex-col justify-center py-16 md:py-20;
+  }
+
+  /* Shared left edge for Hero ↔ Ending */
+  .letter-pad {
+    padding-left: 44px;
+    padding-right: 28px;
+  }
+
+  @media (min-width: 768px) {
+    .letter-pad {
+      padding-left: 42px;
+      padding-right: 42px;
+    }
+  }
+
+  .ending-copy {
+    font-size: clamp(3rem, 12vw, 5.5rem);
+  }
+
+  @media (min-width: 768px) {
+    .ending-copy {
+      font-size: clamp(4.5rem, 7vw, 8rem);
+    }
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 24px rgba(101, 217, 255, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ending-copy,
+  .ending-signature,
+  .ending-seal,
+  .ending-seal img {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
