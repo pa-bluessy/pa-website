@@ -7,9 +7,9 @@ import { Reveal } from "./Reveal";
 export function ReplySection() {
   return (
     <section className="relative w-full">
-      <div className="letter-pad mx-auto max-w-3xl">
+      <div className="letter-pad mx-auto chapter-rail">
         <Reveal>
-          <h2 className="font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl lg:text-5xl">
             Reply
           </h2>
         </Reveal>

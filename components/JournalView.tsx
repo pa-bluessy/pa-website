@@ -21,21 +21,21 @@ function JournalChapter({
   return (
     <article className="border-t border-[rgba(148,170,195,0.22)] py-14 first:border-t-0 first:pt-0 md:py-16">
       <Link href={href} className="group block transition-opacity hover:opacity-80">
-        <div className="flex flex-col gap-6 md:flex-row md:gap-10">
-          <p className="w-10 shrink-0 font-display text-sm tracking-[0.16em] text-pa-muted/50 md:pt-1">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-14 lg:gap-16">
+          <p className="w-10 shrink-0 font-display text-sm tracking-[0.16em] text-pa-muted/50 md:w-12 md:pt-1 md:text-base">
             {String(index + 1).padStart(2, "0")}
           </p>
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] tracking-[0.22em] text-pa-muted/55 uppercase">
+            <p className="text-[10px] tracking-[0.22em] text-pa-muted/55 uppercase md:text-[11px]">
               {article.category ?? article.platform}
               <span className="mx-3 opacity-40">·</span>
               <time dateTime={article.date}>{formatJournalDate(article.date)}</time>
             </p>
-            <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl">
+            <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl lg:text-5xl">
               {article.title}
             </h2>
             {article.excerpt ? (
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-[#F3EDE3]/70 md:text-base">
+              <p className="mt-5 max-w-md text-sm leading-relaxed text-[#F3EDE3]/70 md:max-w-lg md:text-base lg:text-lg">
                 {article.excerpt}
               </p>
             ) : null}
@@ -52,12 +52,12 @@ function JournalChapter({
 export function JournalView() {
   return (
     <div className="relative z-10">
-      <section className="letter-pad flex min-h-[100svh] flex-col justify-end pb-20 pt-28 md:justify-center md:pb-24 md:pt-32">
-        <div className="max-w-xl">
-          <h1 className="font-display text-5xl font-medium tracking-tight text-[#F3EDE3] md:text-6xl">
+      <section className="letter-pad flex min-h-[100svh] flex-col justify-end pb-20 pt-28 md:justify-center md:pb-28 md:pt-36">
+        <div className="max-w-xl md:max-w-2xl">
+          <h1 className="font-display text-5xl font-medium tracking-tight text-[#F3EDE3] md:text-6xl lg:text-7xl">
             Journal
           </h1>
-          <p className="mt-8 max-w-md whitespace-pre-line text-base leading-relaxed text-[#F3EDE3]/85 md:mt-10 md:text-lg">
+          <p className="mt-8 max-w-md whitespace-pre-line text-base leading-relaxed text-[#F3EDE3]/85 md:mt-10 md:max-w-lg md:text-lg lg:text-xl">
             {JOURNAL_LEAD}
           </p>
           <p className="mt-10 text-[10px] tracking-[0.22em] text-pa-muted/60 uppercase">
@@ -68,8 +68,8 @@ export function JournalView() {
 
       <section className="relative min-h-[100svh]">
         <div className="pointer-events-none absolute inset-0 bg-[#03050B]/55" aria-hidden />
-        <div className="letter-pad relative flex min-h-[100svh] flex-col justify-center py-20 md:py-28">
-          <div className="max-w-2xl">
+        <div className="letter-pad relative flex min-h-[100svh] flex-col justify-center py-20 md:py-28 lg:py-32">
+          <div className="chapter-rail">
             {JOURNAL_ARTICLES.map((article, i) => (
               <JournalChapter key={article.slug ?? article.title} index={i} article={article} />
             ))}

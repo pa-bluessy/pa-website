@@ -65,7 +65,7 @@ body {
     @apply relative flex min-h-[100svh] flex-col justify-center py-16 md:py-20;
   }
 
-  /* Shared left edge for Hero ↔ Ending */
+  /* Shared letter margin — scales up on desktop so PC isn't mobile-padded */
   .letter-pad {
     padding-left: 44px;
     padding-right: 28px;
@@ -73,8 +73,33 @@ body {
 
   @media (min-width: 768px) {
     .letter-pad {
-      padding-left: 42px;
-      padding-right: 42px;
+      padding-left: clamp(56px, 7vw, 112px);
+      padding-right: clamp(48px, 6vw, 96px);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .letter-pad {
+      padding-left: clamp(96px, 10vw, 160px);
+      padding-right: clamp(72px, 8vw, 140px);
+    }
+  }
+
+  /* Chapter column width for inner pages */
+  .chapter-rail {
+    width: 100%;
+    max-width: 42rem;
+  }
+
+  @media (min-width: 768px) {
+    .chapter-rail {
+      max-width: 48rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .chapter-rail {
+      max-width: 52rem;
     }
   }
 
@@ -84,7 +109,7 @@ body {
 
   @media (min-width: 768px) {
     .ending-copy {
-      font-size: clamp(4.5rem, 7vw, 8rem);
+      font-size: clamp(4.25rem, 6.2vw, 7.25rem);
     }
   }
 }

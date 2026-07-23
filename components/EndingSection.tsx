@@ -91,8 +91,8 @@ export function EndingSection() {
       </div>
 
       {/* Typography column — aligns with Hero letter-pad */}
-      <div className="letter-pad relative z-10 flex min-h-[100svh] w-full flex-col justify-center pt-[8svh] md:w-[58%] md:pt-0">
-        <div className="max-w-[16ch] md:max-w-[14ch]">
+      <div className="letter-pad relative z-10 flex min-h-[100svh] w-full flex-col justify-center pt-[8svh] md:w-[55%] md:max-w-[40rem] md:pt-0 lg:w-[50%]">
+        <div className="max-w-[16ch] md:max-w-[15ch]">
           <p
             className={`ending-copy font-signature font-normal leading-[1.12] text-[#F3EDE3] transition-opacity duration-[1100ms] ease-out ${
               showCopy ? "opacity-100" : "opacity-0"

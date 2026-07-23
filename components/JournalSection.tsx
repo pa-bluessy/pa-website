@@ -6,10 +6,10 @@ import { Reveal } from "./Reveal";
 export function JournalSection() {
   return (
     <section className="relative w-full">
-      <div className="letter-pad mx-auto max-w-3xl">
+      <div className="letter-pad mx-auto chapter-rail">
         <Reveal>
-          <div className="mb-14 flex items-end justify-between md:mb-16">
-            <h2 className="font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl">
+          <div className="mb-14 flex items-end justify-between md:mb-20">
+            <h2 className="font-display text-3xl font-medium tracking-tight text-[#F3EDE3] md:text-4xl lg:text-5xl">
               Journal
             </h2>
             <Link

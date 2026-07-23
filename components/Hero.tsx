@@ -18,20 +18,20 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative grid h-full min-h-[100svh] flex-1 grid-cols-2 grid-rows-2 overflow-hidden">
+    <section className="relative grid h-full min-h-[100svh] flex-1 grid-cols-1 grid-rows-2 overflow-hidden md:grid-cols-2">
       <FilmGrain className="z-[1] opacity-[0.035]" />
 
-      {/* Bottom-left quadrant — letter opening */}
+      {/* Bottom-left — letter opening; full width on mobile, left half on PC */}
       <div
-        className={`letter-pad relative z-10 col-start-1 row-start-2 flex items-end justify-start pb-24 pt-4 transition-opacity duration-[1.4s] ease-out md:pb-28 ${
+        className={`letter-pad relative z-10 col-start-1 row-start-2 flex items-end justify-start pb-24 pt-4 transition-opacity duration-[1.4s] ease-out md:pb-28 md:pr-8 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <h1 className="w-full text-left">
+        <h1 className="w-full max-w-[18ch] text-left md:max-w-none">
           <span
             className="block font-display font-medium text-[#F3EDE3]"
             style={{
-              fontSize: "clamp(3.76rem, 13.16vw, 6.39rem)",
+              fontSize: "clamp(3.25rem, 9.5vw, 6.75rem)",
               lineHeight: 0.94,
               letterSpacing: "-0.035em",
             }}

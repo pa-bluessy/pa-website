@@ -49,13 +49,13 @@ export function Header() {
           scrolled || menuOpen ? "bg-[#03050B]/70" : "bg-transparent"
         } ${dimmed ? "opacity-25" : "opacity-100"}`}
       >
-        <div className="letter-pad flex h-14 items-center justify-end md:h-16">
-          <nav className="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
+        <div className="letter-pad flex h-14 items-center justify-end md:h-16 lg:h-[4.5rem]">
+          <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="メインナビゲーション">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs tracking-[0.14em] text-[#F3EDE3]/55 transition-opacity hover:text-[#F3EDE3]"
+                className="text-xs tracking-[0.14em] text-[#F3EDE3]/55 transition-opacity hover:text-[#F3EDE3] lg:text-[13px]"
               >
                 {link.label}
               </Link>
