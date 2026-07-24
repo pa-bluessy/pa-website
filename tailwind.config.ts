@@ -108,7 +108,7 @@ const config: Config = {
           "seal-stamp 460ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards",
         "parchment-rise":
           "parchment-rise 700ms cubic-bezier(0.22, 0.8, 0.28, 1) both",
-        "veil-burn-out": "veil-burn-out 3.4s ease-out forwards",
+        "veil-burn-out": "veil-burn-out 3.8s ease-out forwards",
       },
     },
   },
