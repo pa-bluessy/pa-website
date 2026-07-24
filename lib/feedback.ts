@@ -72,7 +72,7 @@ export function buildSlackFeedbackText(input: {
   if (input.proposal?.trim()) {
     lines.push("", "*AI更新提案（Cursor SDK）*", input.proposal.trim());
   } else {
-    lines.push("", "_AI更新提案: 未生成（CURSOR_API_KEY 未設定、または生成スキップ）_");
+    lines.push("", "_AI更新提案: 生成中（完了後に別投稿）_");
   }
 
   lines.push("", "次アクション: 採用 / 保留 / 要確認");
@@ -80,7 +80,7 @@ export function buildSlackFeedbackText(input: {
 }
 
 export async function postToSlack(text: string): Promise<void> {
-  const webhook = process.env.SLACK_WEBHOOK_URL;
+  const webhook = process.env.SLACK_WEBHOOK_URL?.trim();
   if (!webhook) {
     throw new Error("SLACK_WEBHOOK_URL is not set");
   }

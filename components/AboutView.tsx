@@ -52,7 +52,7 @@ export function AboutView() {
             src="/images/profile.jpeg"
             alt=""
             fill
-            className="object-cover object-[center_18%] opacity-90 md:object-[center_22%]"
+            className="object-cover object-[72%_16%] opacity-90 md:object-[70%_12%] lg:object-[68%_10%]"
             sizes="100vw"
             priority
           />

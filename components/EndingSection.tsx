@@ -63,14 +63,14 @@ export function EndingSection() {
       id="ending"
       className="ending-section relative min-h-[100svh] overflow-hidden"
     >
-      {/* Portrait — right-weighted */}
-      <div className="absolute inset-0">
+      {/* Portrait — right-weighted; desktop uses a narrower plane so face isn't mid-cropped */}
+      <div className="absolute inset-0 md:left-[32%] lg:left-[36%]">
         <Image
           src="/images/ending-portrait.png"
           alt=""
           fill
-          className="object-cover object-[68%_center] md:object-[72%_center]"
-          sizes="100vw"
+          className="object-cover object-[70%_18%] md:object-[62%_14%] lg:object-[58%_12%]"
+          sizes="(min-width: 768px) 68vw, 100vw"
         />
         <div
           className="absolute inset-0 md:hidden"
@@ -84,11 +84,17 @@ export function EndingSection() {
           className="absolute inset-0 hidden md:block"
           style={{
             background:
-              "linear-gradient(90deg, rgba(2,5,11,0.92) 0%, rgba(2,5,11,0.72) 42%, rgba(2,5,11,0.28) 75%, rgba(2,5,11,0.38) 100%)",
+              "linear-gradient(90deg, rgba(2,5,11,0.88) 0%, rgba(2,5,11,0.35) 28%, rgba(2,5,11,0.12) 55%, rgba(2,5,11,0.28) 100%)",
           }}
           aria-hidden
         />
       </div>
+
+      {/* Soft fill behind text column on desktop */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 hidden w-[42%] bg-[#02050B]/55 md:block lg:w-[40%]"
+        aria-hidden
+      />
 
       {/* Typography column — aligns with Hero letter-pad */}
       <div className="letter-pad relative z-10 flex min-h-[100svh] w-full flex-col justify-center pt-[8svh] md:w-[55%] md:max-w-[40rem] md:pt-0 lg:w-[50%]">

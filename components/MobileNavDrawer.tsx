@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { SNS_ITEMS } from "@/lib/data";
-import { FeedbackOpenButton } from "./FeedbackModal";
 
 type Props = {
   open: boolean;
@@ -117,8 +116,9 @@ export function MobileNavDrawer({ open, onClose }: Props) {
           </ul>
 
           <div className="mt-8 border-t border-pa-border/20 pt-6">
-            <FeedbackOpenButton
-              onBeforeOpen={onClose}
+            <Link
+              href="/sns#feedback"
+              onClick={onClose}
               className="text-left transition-opacity hover:opacity-80"
             >
               <span className="block font-display text-lg font-medium text-[#F3EDE3]">
@@ -127,7 +127,7 @@ export function MobileNavDrawer({ open, onClose }: Props) {
               <span className="mt-1 block text-sm text-pa-muted/65">
                 ご意見・お問い合わせ
               </span>
-            </FeedbackOpenButton>
+            </Link>
           </div>
         </div>
       </div>

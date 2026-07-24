@@ -11,9 +11,10 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
+  const [burning, setBurning] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const titleId = useId();
+  const hasInk = message.length > 0;
 
   useEffect(() => {
     if (!open) return;
@@ -29,20 +30,28 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !sending) onClose();
+      if (e.key === "Escape" && !sending && !burning) onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose, sending]);
+  }, [open, onClose, sending, burning]);
 
   useEffect(() => {
     if (!open) {
       setMessage("");
       setError(null);
-      setSent(false);
       setSending(false);
+      setBurning(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!burning) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ms = reduced ? 200 : 3450;
+    const t = window.setTimeout(() => onClose(), ms);
+    return () => window.clearTimeout(t);
+  }, [burning, onClose]);
 
   const send = async () => {
     const body = message.trim();
@@ -65,11 +74,9 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
       if (!res.ok || !data.ok) {
         throw new Error(data.error ?? "send_failed");
       }
-      setSent(true);
-      window.setTimeout(() => onClose(), 900);
+      setBurning(true);
     } catch {
-      setError("送信に失敗しました。時間をおいて再度お試しください。");
-    } finally {
+      setError("送れませんでした。少し時間をおいて、もう一度試してください。");
       setSending(false);
     }
   };
@@ -77,72 +84,104 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center px-5" role="presentation">
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center px-5 py-8 md:py-10"
+      role="presentation"
+    >
       <button
         type="button"
-        className="absolute inset-0 bg-[#03050B]/75 backdrop-blur-sm"
+        className={`feedback-veil absolute inset-0 bg-[#02050B]/78 ${
+          burning ? "animate-veil-burn-out pointer-events-none" : ""
+        }`}
         aria-label="閉じる"
+        disabled={sending || burning}
         onClick={() => {
-          if (!sending) onClose();
+          if (!sending && !burning) onClose();
         }}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 w-full max-w-md border border-pa-border bg-[#07101F] p-5 shadow-glow md:p-6"
+        className={`feedback-parchment relative z-10 flex w-full max-h-[min(88svh,40rem)] max-w-[26rem] flex-col px-7 pb-8 pt-8 md:max-w-[28rem] md:px-9 md:pb-9 md:pt-9 ${
+          burning
+            ? "is-burning pointer-events-none overflow-hidden"
+            : "animate-parchment-rise overflow-y-auto"
+        }`}
       >
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 id={titleId} className="font-sans text-[11px] tracking-[0.22em] text-pa-muted/80">
-            FEEDBACK
-          </h2>
-          <button
-            type="button"
-            onClick={() => {
-              if (!sending) onClose();
-            }}
-            className="inline-flex h-8 w-8 items-center justify-center text-pa-muted transition-colors hover:text-pa-text"
-            aria-label="閉じる"
-          >
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden>
-              <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
-
-        {sent ? (
-          <p className="py-8 text-center text-sm text-[#F3EDE3]/80">送信しました。ありがとうございます。</p>
-        ) : (
+        {burning ? (
           <>
+            <div className="feedback-burn-embers" aria-hidden />
+            <div className="feedback-burn-smoke" aria-hidden />
+          </>
+        ) : null}
+
+        <div className="relative z-[1] flex min-h-0 flex-1 flex-col">
+          <div className="mb-6 flex shrink-0 items-start justify-between gap-4">
+            <div className="min-w-0">
+              <p className="font-display text-[10px] tracking-[0.28em] text-[#5a4630]/70 uppercase">
+                A quiet reply
+              </p>
+              <h2
+                id={titleId}
+                className="mt-2 font-signature text-[2rem] font-normal leading-none text-[#2a2218] md:text-[2.35rem]"
+              >
+                Write back
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (!sending && !burning) onClose();
+              }}
+              disabled={sending || burning}
+              className="mt-1 font-display text-xs tracking-[0.14em] text-[#5a4630]/65 transition-opacity hover:text-[#2a2218] disabled:opacity-40"
+              aria-label="閉じる"
+            >
+              Close
+            </button>
+          </div>
+
+          <div className="mb-5 h-px w-full shrink-0 bg-[rgba(74,58,36,0.28)]" aria-hidden />
+
+          <div className="relative min-h-[11rem] flex-1">
+            <p
+              aria-hidden={hasInk}
+              className={`pointer-events-none absolute left-0 top-1 font-display text-[0.95rem] leading-relaxed text-[#5a4630]/35 transition-opacity duration-300 md:text-base ${
+                hasInk ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              ご意見、ご要望はこちらへ
+            </p>
             <label htmlFor="feedback-message" className="sr-only">
-              フィードバック内容
+              ご意見、ご要望
             </label>
             <textarea
               id="feedback-message"
               ref={textareaRef}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              rows={6}
-              disabled={sending}
-              placeholder="メッセージを入力..."
-              className="w-full resize-none border border-pa-border bg-[rgba(10,18,35,0.65)] px-3 py-3 text-sm text-pa-text outline-none transition-colors placeholder:text-pa-muted/60 focus:border-pa-cyan/40 disabled:opacity-60"
+              disabled={sending || burning}
+              className="h-full min-h-[11rem] w-full resize-none border-0 bg-transparent px-0 py-1 font-display text-[1.05rem] leading-[1.75] outline-none disabled:opacity-70 md:text-lg"
             />
+          </div>
 
-            {error ? <p className="mt-3 text-xs text-red-300/90">{error}</p> : null}
+          {error ? (
+            <p className="mt-3 shrink-0 font-display text-sm text-[#6b3f2a]/85">{error}</p>
+          ) : null}
 
-            <div className="mt-4 flex justify-end">
-              <button
-                type="button"
-                onClick={() => void send()}
-                disabled={sending}
-                className="inline-flex items-center gap-2 border border-pa-cyan/40 bg-pa-cyan/10 px-5 py-2.5 text-sm text-pa-cyan transition-colors hover:border-pa-cyan/70 hover:bg-pa-cyan/20 disabled:opacity-50"
-              >
-                {sending ? "送信中..." : "送信"}
-                <span aria-hidden>→</span>
-              </button>
-            </div>
-          </>
-        )}
+          <div className="mt-6 flex shrink-0 items-end justify-between gap-4 border-t border-[rgba(74,58,36,0.22)] pt-5">
+            <p className="font-signature text-xl leading-none text-[#5a4630]/75">Pa.</p>
+            <button
+              type="button"
+              onClick={() => void send()}
+              disabled={sending || burning}
+              className="font-display text-sm tracking-[0.16em] text-[#2a2218] transition-opacity hover:opacity-70 disabled:opacity-45"
+            >
+              {sending && !burning ? "Sending…" : "Send →"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -112,6 +112,198 @@ body {
       font-size: clamp(4.25rem, 6.2vw, 7.25rem);
     }
   }
+
+  /* Whisky-label parchment for feedback reply */
+  .feedback-parchment {
+    position: relative;
+    color: #2a2218;
+    background-color: #e4d4b4;
+    background-image:
+      radial-gradient(ellipse at 18% 12%, rgba(255, 248, 230, 0.55), transparent 42%),
+      radial-gradient(ellipse at 86% 88%, rgba(120, 88, 48, 0.2), transparent 48%),
+      radial-gradient(ellipse at 50% 40%, rgba(90, 70, 40, 0.06), transparent 55%),
+      linear-gradient(165deg, #efe2c6 0%, #e2d0aa 48%, #d4bc90 100%);
+    box-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.45),
+      0 2px 0 rgba(255, 248, 230, 0.35) inset,
+      0 -1px 0 rgba(90, 70, 40, 0.18) inset;
+  }
+
+  .feedback-parchment::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(74, 58, 36, 0.35);
+    box-shadow: 0 0 0 1px rgba(232, 214, 176, 0.35);
+  }
+
+  .feedback-parchment::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  .feedback-parchment textarea {
+    color: #2a2218;
+    caret-color: #5a4630;
+  }
+
+  .feedback-parchment textarea::placeholder {
+    color: rgba(74, 58, 36, 0.38);
+  }
+
+  /* Slow letter burn — irregular edge via layered masks */
+  .feedback-parchment.is-burning {
+    animation: parchment-burn-away 3.35s cubic-bezier(0.35, 0.05, 0.25, 1) forwards;
+    will-change: filter, opacity, transform, -webkit-mask-image, mask-image;
+  }
+
+  .feedback-burn-embers,
+  .feedback-burn-smoke {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+
+  .feedback-burn-embers {
+    opacity: 0;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(ellipse 70% 18% at 28% 92%, rgba(255, 150, 55, 0.55), transparent 70%),
+      radial-gradient(ellipse 55% 14% at 72% 88%, rgba(255, 90, 30, 0.4), transparent 68%),
+      linear-gradient(
+        188deg,
+        transparent 0%,
+        transparent 58%,
+        rgba(255, 170, 70, 0.22) 72%,
+        rgba(255, 95, 25, 0.45) 84%,
+        rgba(40, 18, 8, 0.55) 94%,
+        transparent 100%
+      );
+    animation: burn-ember-rise 3.35s cubic-bezier(0.35, 0.05, 0.25, 1) forwards;
+  }
+
+  .feedback-burn-smoke {
+    opacity: 0;
+    background:
+      radial-gradient(ellipse 40% 28% at 42% 70%, rgba(180, 170, 155, 0.18), transparent 70%),
+      radial-gradient(ellipse 35% 24% at 62% 62%, rgba(160, 150, 140, 0.14), transparent 72%);
+    filter: blur(14px);
+    animation: burn-smoke-lift 3.35s ease-out forwards;
+  }
+}
+
+@keyframes parchment-burn-away {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: brightness(1) contrast(1) sepia(0);
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 100%, transparent 100%),
+      radial-gradient(ellipse 120% 40% at 50% 120%, transparent 40%, #000 70%);
+    mask-image:
+      linear-gradient(188deg, #000 100%, transparent 100%),
+      radial-gradient(ellipse 120% 40% at 50% 120%, transparent 40%, #000 70%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  18% {
+    filter: brightness(0.96) contrast(1.04) sepia(0.12);
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 86%, transparent 98%),
+      radial-gradient(ellipse 130% 48% at 40% 108%, transparent 38%, #000 68%);
+    mask-image:
+      linear-gradient(188deg, #000 86%, transparent 98%),
+      radial-gradient(ellipse 130% 48% at 40% 108%, transparent 38%, #000 68%);
+  }
+  42% {
+    filter: brightness(0.82) contrast(1.12) sepia(0.28);
+    transform: translateY(-4px) scale(0.995) rotate(-0.2deg);
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 58%, transparent 78%),
+      radial-gradient(ellipse 140% 55% at 58% 78%, transparent 34%, #000 66%);
+    mask-image:
+      linear-gradient(188deg, #000 58%, transparent 78%),
+      radial-gradient(ellipse 140% 55% at 58% 78%, transparent 34%, #000 66%);
+  }
+  68% {
+    filter: brightness(0.55) contrast(1.2) sepia(0.45);
+    transform: translateY(-10px) scale(0.985) rotate(0.35deg);
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 28%, transparent 52%),
+      radial-gradient(ellipse 150% 60% at 35% 48%, transparent 30%, #000 62%);
+    mask-image:
+      linear-gradient(188deg, #000 28%, transparent 52%),
+      radial-gradient(ellipse 150% 60% at 35% 48%, transparent 30%, #000 62%);
+  }
+  88% {
+    filter: brightness(0.28) contrast(1.25) sepia(0.55);
+    transform: translateY(-18px) scale(0.97) rotate(-0.4deg);
+    opacity: 0.55;
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 6%, transparent 28%),
+      radial-gradient(ellipse 160% 70% at 50% 18%, transparent 28%, #000 58%);
+    mask-image:
+      linear-gradient(188deg, #000 6%, transparent 28%),
+      radial-gradient(ellipse 160% 70% at 50% 18%, transparent 28%, #000 58%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.95) rotate(0.2deg);
+    filter: brightness(0.12) contrast(1.3) sepia(0.6);
+    -webkit-mask-image:
+      linear-gradient(188deg, #000 0%, transparent 8%),
+      radial-gradient(ellipse 180% 80% at 50% -10%, transparent 20%, #000 50%);
+    mask-image:
+      linear-gradient(188deg, #000 0%, transparent 8%),
+      radial-gradient(ellipse 180% 80% at 50% -10%, transparent 20%, #000 50%);
+  }
+}
+
+@keyframes burn-ember-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+  12% {
+    opacity: 0.85;
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-18%);
+  }
+  75% {
+    opacity: 0.75;
+    transform: translateY(-48%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-78%);
+  }
+}
+
+@keyframes burn-smoke-lift {
+  0% {
+    opacity: 0;
+    transform: translateY(8%) scale(1);
+  }
+  25% {
+    opacity: 0.45;
+  }
+  60% {
+    opacity: 0.55;
+    transform: translateY(-30%) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-70%) scale(1.18);
+  }
 }
 
 @layer utilities {
@@ -132,12 +324,19 @@ body {
   .ending-copy,
   .ending-signature,
   .ending-seal,
-  .ending-seal img {
+  .ending-seal img,
+  .feedback-parchment,
+  .feedback-parchment.is-burning,
+  .feedback-burn-embers,
+  .feedback-burn-smoke,
+  .feedback-veil {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 
   *,

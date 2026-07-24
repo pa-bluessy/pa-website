@@ -101,15 +101,12 @@ export function ReplyView() {
               <ReplyChapter key={item.id} index={i} item={item} />
             ))}
 
-            <div className="border-t border-[rgba(148,170,195,0.22)] py-14 md:py-16">
+            <div id="feedback" className="scroll-mt-28 border-t border-[rgba(148,170,195,0.22)] py-14 md:py-16">
               <p className="text-[10px] tracking-[0.22em] text-pa-muted/55 uppercase md:text-[11px]">
                 Feedback
               </p>
               <p className="mt-2 font-display text-2xl font-medium tracking-tight text-[#F3EDE3] md:text-3xl lg:text-4xl">
                 Write back
-              </p>
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-[#F3EDE3]/70 md:max-w-lg md:text-base lg:text-lg">
-                ご意見・お問い合わせは、ここから送れます。
               </p>
               <div className="mt-8">
                 <FeedbackBlock />

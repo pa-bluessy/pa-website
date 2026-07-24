@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SNS_ITEMS } from "@/lib/data";
-import { FeedbackBlock } from "./FeedbackModal";
 import { Reveal } from "./Reveal";
 
 /** Reply — a letter answers back (not "SNS") */
@@ -53,7 +52,12 @@ export function ReplySection() {
 
         <Reveal delay={220}>
           <div className="mt-14">
-            <FeedbackBlock />
+            <Link
+              href="/sns#feedback"
+              className="text-sm tracking-wide text-pa-muted/70 transition-opacity hover:text-[#F3EDE3]"
+            >
+              Write back →
+            </Link>
           </div>
         </Reveal>
 

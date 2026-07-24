@@ -79,6 +79,23 @@ const config: Config = {
             filter: "blur(0)",
           },
         },
+        "parchment-rise": {
+          from: {
+            opacity: "0",
+            transform: "translateY(18px) scale(0.985)",
+            filter: "blur(2px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0) scale(1)",
+            filter: "blur(0)",
+          },
+        },
+        "veil-burn-out": {
+          "0%": { opacity: "1" },
+          "55%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
         drift: "drift 18s ease-in-out infinite",
@@ -89,6 +106,9 @@ const config: Config = {
         "seal-crack": "seal-crack 0.38s ease-out both",
         "seal-stamp":
           "seal-stamp 460ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards",
+        "parchment-rise":
+          "parchment-rise 700ms cubic-bezier(0.22, 0.8, 0.28, 1) both",
+        "veil-burn-out": "veil-burn-out 3.4s ease-out forwards",
       },
     },
   },
