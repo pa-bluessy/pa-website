@@ -126,6 +126,14 @@ async function restoreActions(params: { channel: string; ts: string }): Promise<
   });
 }
 
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    service: "slack-interactions",
+    hint: "This endpoint accepts POST from Slack. Browser GET is fine.",
+  });
+}
+
 export async function POST(req: Request) {
   if (!slackInteractionsConfigured()) {
     return NextResponse.json({ ok: false, error: "slack_bot_not_configured" }, { status: 503 });
