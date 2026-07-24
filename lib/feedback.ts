@@ -75,7 +75,6 @@ export function buildSlackFeedbackText(input: {
     lines.push("", "_AI更新提案: 生成中（完了後に別投稿）_");
   }
 
-  lines.push("", "次アクション: 採用 / 保留 / 要確認");
   return lines.join("\n");
 }
 

@@ -8,6 +8,12 @@ import {
   postToSlack,
   type FeedbackSource,
 } from "../lib/feedback";
+import {
+  buildDecisionActionsBlock,
+  postSlackMessage,
+  slackBotConfigured,
+  textToBlocks,
+} from "../lib/slack";
 
 function isSource(v: string): v is FeedbackSource {
   return v === "mydawn" || v === "pa-website";
@@ -33,9 +39,6 @@ async function main() {
 
   if (!isSource(sourceRaw) || !message) {
     throw new Error("FEEDBACK_SOURCE / FEEDBACK_MESSAGE required");
-  }
-  if (!process.env.SLACK_WEBHOOK_URL) {
-    throw new Error("SLACK_WEBHOOK_URL required");
   }
   if (!process.env.CURSOR_API_KEY) {
     throw new Error("CURSOR_API_KEY required");
@@ -84,19 +87,33 @@ async function main() {
     throw err;
   }
 
-  const text = [
-    `*AI更新提案（Cursor SDK）* · 続き`,
-    "",
-    buildSlackFeedbackText({
-      source: sourceRaw,
-      userId,
-      message,
-      proposal,
-    }),
-  ].join("\n");
+  const text = buildSlackFeedbackText({
+    source: sourceRaw,
+    userId,
+    message,
+    proposal,
+  });
 
-  await postToSlack(text);
-  console.log("proposal posted to Slack");
+  if (slackBotConfigured()) {
+    await postSlackMessage({
+      text,
+      blocks: [...textToBlocks(text), buildDecisionActionsBlock()],
+    });
+    console.log("proposal posted to Slack with decision buttons");
+    return;
+  }
+
+  if (!process.env.SLACK_WEBHOOK_URL) {
+    throw new Error("SLACK_BOT_TOKEN/SLACK_CHANNEL_ID/SLACK_SIGNING_SECRET or SLACK_WEBHOOK_URL required");
+  }
+  await postToSlack(
+    [
+      text,
+      "",
+      "_判定ボタン未設定（SLACK_BOT_TOKEN / SLACK_CHANNEL_ID / SLACK_SIGNING_SECRET を入れてください）_",
+    ].join("\n")
+  );
+  console.log("proposal posted to Slack via webhook (no buttons)");
 }
 
 main().catch((err) => {

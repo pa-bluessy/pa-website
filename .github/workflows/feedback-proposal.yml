@@ -20,6 +20,8 @@ jobs:
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
           FEEDBACK_SOURCE: ${{ github.event.client_payload.source }}
           FEEDBACK_MESSAGE: ${{ github.event.client_payload.message }}
           FEEDBACK_USER_ID: ${{ github.event.client_payload.userId }}
