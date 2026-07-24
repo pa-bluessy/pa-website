@@ -159,7 +159,7 @@ function LetterGate() {
             alt=""
             width={120}
             height={120}
-            className="h-[100px] w-[100px] object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)] md:h-[120px] md:w-[120px]"
+            className="h-[100px] w-[100px] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.4)] md:h-[120px] md:w-[120px]"
             priority
             unoptimized
           />

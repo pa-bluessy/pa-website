@@ -129,7 +129,7 @@ export function EndingSection() {
                   className="h-full w-full object-contain animate-seal-stamp"
                   style={{
                     filter:
-                      "drop-shadow(0 8px 12px rgba(0,0,0,0.42)) drop-shadow(0 2px 3px rgba(0,0,0,0.35))",
+                      "drop-shadow(0 6px 10px rgba(0,0,0,0.35)) drop-shadow(0 1px 2px rgba(0,0,0,0.28))",
                   }}
                   unoptimized
                 />

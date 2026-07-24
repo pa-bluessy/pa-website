@@ -91,10 +91,9 @@ const config: Config = {
             filter: "blur(0)",
           },
         },
-        "veil-burn-out": {
-          "0%": { opacity: "1" },
-          "55%": { opacity: "1" },
-          "100%": { opacity: "0" },
+        "veil-fade-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
         },
       },
       animation: {
@@ -108,7 +107,7 @@ const config: Config = {
           "seal-stamp 460ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards",
         "parchment-rise":
           "parchment-rise 700ms cubic-bezier(0.22, 0.8, 0.28, 1) both",
-        "veil-burn-out": "veil-burn-out 3.8s ease-out forwards",
+        "veil-fade-out": "veil-fade-out 1.4s ease-out forwards",
       },
     },
   },
