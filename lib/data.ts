@@ -99,22 +99,14 @@ export const MYDAWN = {
       description: "日々の時間配分を振り返り、次の行動に活かせます。",
     },
     {
-      title: "ダークテーマUI",
-      description: "夜間でも見やすい、落ち着いたインターフェース。",
+      title: "6色パターン",
+      description: "Deep Navy から Luna まで、6色のテーマを切り替えられます。",
     },
   ],
   screenshots: [
     {
       src: "/images/mydawn-screenshot-1.png",
-      alt: "MyDawn 入力画面 — 時間マトリクスと進行中タスク",
-    },
-    {
-      src: "/images/mydawn-screenshot-2.png",
-      alt: "MyDawn スクリーンショット 2",
-    },
-    {
-      src: "/images/mydawn-screenshot-3.png",
-      alt: "MyDawn スクリーンショット 3",
+      alt: "MyDawn 時間マトリクス画面",
     },
   ],
   comingSoon: {

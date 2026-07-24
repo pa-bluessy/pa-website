@@ -43,24 +43,26 @@ export function ScreenshotCarousel({ shots }: Props) {
           </figure>
         ))}
       </div>
-      <div className="mt-4 hidden justify-end gap-2 md:flex">
-        <button
-          type="button"
-          onClick={() => scrollBy(-1)}
-          className="inline-flex h-10 w-10 items-center justify-center text-pa-muted/70 transition-opacity hover:text-[#F3EDE3]"
-          aria-label="前のスクリーンショット"
-        >
-          ←
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollBy(1)}
-          className="inline-flex h-10 w-10 items-center justify-center text-pa-muted/70 transition-opacity hover:text-[#F3EDE3]"
-          aria-label="次のスクリーンショット"
-        >
-          →
-        </button>
-      </div>
+      {shots.length > 1 ? (
+        <div className="mt-4 hidden justify-end gap-2 md:flex">
+          <button
+            type="button"
+            onClick={() => scrollBy(-1)}
+            className="inline-flex h-10 w-10 items-center justify-center text-pa-muted/70 transition-opacity hover:text-[#F3EDE3]"
+            aria-label="前のスクリーンショット"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollBy(1)}
+            className="inline-flex h-10 w-10 items-center justify-center text-pa-muted/70 transition-opacity hover:text-[#F3EDE3]"
+            aria-label="次のスクリーンショット"
+          >
+            →
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

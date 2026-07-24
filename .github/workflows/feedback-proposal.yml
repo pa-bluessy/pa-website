@@ -1,0 +1,29 @@
+name: Feedback Proposal (Cursor SDK)
+
+on:
+  repository_dispatch:
+    types: [feedback_proposal]
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Generate proposal and post to Slack
+        run: npx tsx scripts/feedback-proposal.mts
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          FEEDBACK_SOURCE: ${{ github.event.client_payload.source }}
+          FEEDBACK_MESSAGE: ${{ github.event.client_payload.message }}
+          FEEDBACK_USER_ID: ${{ github.event.client_payload.userId }}
+          FEEDBACK_MYDAWN_REPO_URL: https://github.com/pa-bluessy/mydawn
+          FEEDBACK_MYDAWN_REF: existing-log-split-gps
+          FEEDBACK_WEBSITE_REPO_URL: https://github.com/pa-bluessy/pa-website
+          FEEDBACK_WEBSITE_REF: master
